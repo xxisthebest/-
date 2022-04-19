@@ -1,1 +1,50 @@
-NNUC是卷积神经网络
+
+Convolution2D：
+Convolution operator for filtering windows of two-dimensional inputs.
+
+When using this layer as the first layer in a model, provide the keyword argument 
+input_shape (tuple of integers, does not include the sample axis), 
+e.g. input_shape=(3, 128, 128) for 128x128 RGB pictures.
+Examples：
+# apply a 3x3 convolution with 64 output filters on a 256x256 image:
+model = Sequential()
+model.add(Convolution2D(64, 3, 3,
+            border_mode='same',
+            input_shape=(3, 256, 256)))
+# now model.output_shape == (None, 64, 256, 256)
+
+# add a 3x3 convolution on top, with 32 output filters:
+model.add(Convolution2D(32, 3, 3, border_mode='same'))
+# now model.output_shape == (None, 32, 256, 256)
+
+nb_filter: Number of convolution filters to use.
+nb_row: Number of rows in the convolution kernel.
+nb_col: Number of columns in the convolution kernel.
+
+init: name of initialization function for the weights of the layer (see 
+initializations), or alternatively, Theano function to use for weights initialization. This parameter is only relevant if you don't pass a weights argument.
+
+activation: name of activation function to use (see activations), or alternatively, 
+elementwise Theano function. If you don't specify anything, no activation is applied 
+(ie. "linear" activation: a(x) = x).
+
+weights: list of numpy arrays to set as initial weights.
+border_mode: 'valid', 'same' or 'full' ('full' requires the Theano backend).
+subsample: tuple of length 2. Factor by which to subsample output. Also called strides elsewhere.
+
+W_regularizer: instance of WeightRegularizer (eg. L1 or L2 regularization), applied 
+to the main weights matrix.
+
+b_regularizer: instance of WeightRegularizer, applied to the bias.
+activity_regularizer: instance of ActivityRegularizer, applied to the network output.
+
+W_constraint: instance of the constraints module (eg. maxnorm, nonneg), applied to 
+the main weights matrix.
+
+b_constraint: instance of the constraints module, applied to the bias.
+dim_ordering: 'th' or 'tf'. In 'th' mode, the channels dimension (the depth) is at 
+index 1, in 'tf' mode is it at index 3. It defaults to the image_dim_ordering value 
+found in your Keras config file at ~/.keras/keras.json. If you never set it, then it 
+will be "tf".
+
+bias: whether to include a bias (i.e. make the layer affine rather than linear).
